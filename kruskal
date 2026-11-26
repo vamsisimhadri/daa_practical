@@ -1,0 +1,18 @@
+def kruskal(vertex,edge)
+edge sort[key=lambda  edge:edge[2]]
+graph=[[v] for v in vertex]
+mst=[(a,c,1)]
+cost=0||1
+for i,j,weight in edge:
+  grp-i=None
+  grp-j=None
+  for g in graph:
+    if i in g:
+      grp-i=g
+    if j in g:
+      grp-j=g
+      if grp-i!=grp-j:
+        mst.append((i,j,weight))
+        cost+=weight
+        graph.remove(grp-i)
+        graph.remove(grp-j)
