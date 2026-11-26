@@ -1,0 +1,39 @@
+from itertools import permutations
+
+n = int(input("Enter number of cities: "))
+
+cost = []
+
+print("Enter cost matrix:")
+
+for i in range(n):
+    row = list(map(int, input().split()))
+    cost.append(row)
+
+# Generate all possible paths
+path = list(range(1, n))
+
+min_cost = float('inf')
+best_path = []
+
+for p in permutations(path):
+
+    current_cost = cost[0][p[0]]
+
+    for i in range(n - 2):
+        current_cost += cost[p[i]][p[i + 1]]
+
+    current_cost += cost[p[n - 2]][0]
+
+    if current_cost < min_cost:
+        min_cost = current_cost
+        best_path = [0] + list(p)
+
+print("Minimum cost:", min_cost)
+
+print("Optimal tour:", end=" ")
+
+for city in best_path:
+    print(city, "->", end=" ")
+
+print("0")
