@@ -1,0 +1,48 @@
+def find_parent(parent, i):
+    if parent[i] == i:
+        return i
+    return find_parent(parent, parent[i])
+
+
+def union_set(parent, u, v):
+    parent_u = find_parent(parent, u)
+    parent_v = find_parent(parent, v)
+    parent[parent_u] = parent_v
+
+
+n = int(input("Enter number of vertices: "))
+e = int(input("Enter number of edges: "))
+
+edges = []
+
+print("Enter edges (source destination weight):")
+
+for i in range(e):
+    u, v, w = map(int, input().split())
+    edges.append((w, u, v))
+
+# Sort edges by weight
+edges.sort()
+
+# Initialize parent
+parent = [i for i in range(n)]
+
+total_cost = 0
+count = 0
+
+print("\nEdges in Minimum Spanning Tree:")
+
+for w, u, v in edges:
+
+    if find_parent(parent, u) != find_parent(parent, v):
+
+        print(u, "-", v, ":", w)
+
+        total_cost += w
+        union_set(parent, u, v)
+        count += 1
+
+    if count == n - 1:
+        break
+
+print("Minimum Cost =", total_cost)
